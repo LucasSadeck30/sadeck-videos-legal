@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Voltando para o painel</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.7 system-ui, -apple-system, sans-serif; max-width: 40rem;
+         margin: 0 auto; padding: 3rem 1.25rem; }
+  h1 { font-size: 1.5rem; }
+  code { background: rgba(127,127,127,.18); padding: .1em .35em; border-radius: 3px; }
+  a.b { display: inline-block; margin-top: 1.5rem; background: #2f6fd0;
+        color: #fff; padding: .7rem 1.2rem; border-radius: 6px;
+        text-decoration: none; }
+  .p { color: #777; font-size: .9rem; margin-top: 2rem; }
+</style>
+
+<h1>Voltando para o painel…</h1>
+<p>O TikTok devolveu a autorização aqui, e esta página só a repassa para o painel
+que roda na sua máquina.</p>
+<p id="manual" hidden>Se nada aconteceu, clique:
+  <a class="b" id="ir" href="#">Continuar no painel</a></p>
+
+<p class="p">Esta página não guarda nada e não envia nada para lugar nenhum: ela
+lê o endereço da própria barra e manda o navegador para <code>127.0.0.1</code>.
+O código de autorização sozinho não vale nada — ele só funciona com o
+<em>code&nbsp;verifier</em> do PKCE, que nunca saiu do seu computador.</p>
+
+<script>
+  // Para onde o painel local escuta. Porta e esquema batem com o `--tls`.
+  var PAINEL = 'https://127.0.0.1:8760/oauth/tiktok';
+  // A query inteira é repassada sem interpretação: `code`, `state`, e o `error`
+  // quando a pessoa recusa — o painel sabe tratar os três, e reescrever aqui
+  // seria uma segunda leitura para divergir da primeira.
+  var destino = PAINEL + (window.location.search || '');
+  document.getElementById('ir').href = destino;
+  document.getElementById('manual').hidden = false;
+  window.location.replace(destino);
+</script>
