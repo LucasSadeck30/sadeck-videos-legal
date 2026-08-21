@@ -28,8 +28,10 @@ O código de autorização sozinho não vale nada — ele só funciona com o
 <em>code&nbsp;verifier</em> do PKCE, que nunca saiu do seu computador.</p>
 
 <script>
-  // Para onde o painel local escuta. Porta e esquema batem com o `--tls`.
-  var PAINEL = 'https://127.0.0.1:8760/oauth/tiktok';
+  // Para onde o painel local escuta. O painel fica em http, e isso é de propósito:
+  // servi-lo em https quebrava o uso normal dele. O TikTok nunca vê este
+  // endereço — ele só conhece esta página.
+  var PAINEL = 'http://127.0.0.1:8760/oauth/tiktok';
   // A query inteira é repassada sem interpretação: `code`, `state`, e o `error`
   // quando a pessoa recusa — o painel sabe tratar os três, e reescrever aqui
   // seria uma segunda leitura para divergir da primeira.
